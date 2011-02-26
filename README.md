@@ -10,7 +10,7 @@ Diff w/ analysis and metrics for `origin/master..HEAD`:
 
     $> analdiffist origin/master
 
-    _or use analdiffist's default default, `origin/master`:
+_or use analdiffist's default default, `origin/master`:
 
     $> analdiffist
 
