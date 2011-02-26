@@ -10,14 +10,26 @@ Diff w/ analysis and metrics for `origin/master..HEAD`:
 
     $> analdiffist origin/master
 
+    _or use analdiffist's default default, `origin/master`:
+
+    $> analdiffist
+
 Diff w/ analysis and metrics for `origin/master..master`:
 
     $> analdiffist origin/master..master
 
+Diff each commit in a range:
+
+    $> analdiffist --each origin/master..master
+
+
+Only show diff 
 Sample Output
 --------------
 
 TBD
+
+Maybe return codes can be based on positive / negative change?
 
 
 Contributing to analdiffist
