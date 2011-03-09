@@ -6,6 +6,12 @@ A professional twice over: an analyst and a diffist.
 Usage
 -------
 
+analdiffist [*ref-1*] [*ref-2*]
+
+If not supplied, ref-1 defaults to *origin/master* and ref-2 defaults to the current head. 
+
+note that before starting, analdiffist will stash your local changes, if any exist. After running, it will unstash your changes, leaving your local tree untouched... I think. No warranties are made.
+
 Diff w/ analysis and metrics for `origin/master..HEAD`:
 
     $> analdiffist origin/master
@@ -16,20 +22,19 @@ _or use analdiffist's default default, `origin/master`:
 
 Diff w/ analysis and metrics for `origin/master..master`:
 
+    $> analdiffist origin/master master
+
+Future
+------
+
+Diff each commit in a range (once we implement this):
+
     $> analdiffist origin/master..master
 
-Diff each commit in a range:
 
-    $> analdiffist --each origin/master..master
-
-
-Only show diff 
 Sample Output
 --------------
 
-TBD
-
-Maybe return codes can be based on positive / negative change?
 
 
 Contributing to analdiffist
