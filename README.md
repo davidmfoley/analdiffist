@@ -3,6 +3,9 @@ analdiffist
 
 A professional twice over: an analyst and a diffist.
 
+analdiffist uses [flog](http://ruby.sadi.st/Flog.html) and [reek](https://github.com/kevinrutherford/reek/wiki) to analyze ruby code.
+Given two git refs (for example *master* and *feature-branch*), it will show you any differences in code metrics introduced between the refs.
+
 Usage
 -------
 
