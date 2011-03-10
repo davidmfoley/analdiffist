@@ -6,6 +6,8 @@ module AnalDiffist
   require 'tmpdir'
   class Anal < Diffist
     def run(start_ref, end_ref)
+      @targets = AnalDiffist::TargetFinder.new.targets
+      echo "Targets: #{@targets}"
       current_branch = get_current_branch
       puts "current branch: #{current_branch}"
       stashed = try_to_stash
@@ -57,9 +59,8 @@ module AnalDiffist
 
     def do_analytics dest_filename, ref_name
       puts 'writing analytics to ' + dest_filename
-      target_finder = AnalDiffist::TargetFinder.new
-      reek_result = `reek -q #{target_finder}`
-      flog_result = `flog -g #{target_finder}`
+      reek_result = `reek -q #{@targets}`
+      flog_result = `flog -g #{@targets}`
       File.open(dest_filename, 'w') do |f|
         f.write"--- Analytics for #{ref_name} ---\n\n"
 
