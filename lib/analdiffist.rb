@@ -17,7 +17,7 @@ module AnalDiffist
       file_2 = analyze_ref(ref[1])
 
       begin
-        echo_exec "git checkout #{current_branch}" if current_branch != ref[1]
+        echo_exec "git checkout -q #{current_branch}" if current_branch != ref[1]
       rescue Exception
       end
 
@@ -43,7 +43,7 @@ module AnalDiffist
     def analyze_ref ref_name
       file = get_file_name ref_name
       begin
-        echo_exec "git checkout #{ref_name}"
+        echo_exec "git checkout -q #{ref_name}"
         do_analytics file, ref_name
       rescue Exception
       end
