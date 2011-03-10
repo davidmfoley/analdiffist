@@ -6,8 +6,7 @@ module AnalDiffist
   require 'tmpdir'
   class Anal < Diffist
     def run(start_ref, end_ref)
-      @targets = AnalDiffist::TargetFinder.new.targets
-      echo "Targets: #{@targets}"
+      @targets = AnalDiffist::TargetFinder.new
       current_branch = get_current_branch
       puts "current branch: #{current_branch}"
       stashed = try_to_stash
