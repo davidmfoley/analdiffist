@@ -1,4 +1,5 @@
 module AnalDiffist
+  require 'analdiffist/target_finder'
   class Diffist
   end
 
@@ -56,8 +57,9 @@ module AnalDiffist
 
     def do_analytics dest_filename, ref_name
       puts 'writing analytics to ' + dest_filename
-      reek_result = `reek -q app lib`
-      flog_result = `flog -g app lib`
+      target_finder = AnalDiffist::TargetFinder.new
+      reek_result = `reek -q #{target_finder}`
+      flog_result = `flog -g #{target_finder}`
       File.open(dest_filename, 'w') do |f|
         f.write"--- Analytics for #{ref_name} ---\n\n"
 
