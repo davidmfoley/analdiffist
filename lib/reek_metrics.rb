@@ -1,0 +1,2 @@
+class ReekMetrics
+end

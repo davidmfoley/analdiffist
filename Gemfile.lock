@@ -1,6 +1,9 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    ZenTest (4.5.0)
+    autotest (4.4.6)
+      ZenTest (>= 4.4.1)
     diff-lcs (1.1.2)
     flog (2.5.1)
       ruby_parser (~> 2.0)
@@ -11,19 +14,18 @@ GEM
       git (>= 1.2.5)
       rake
     rake (0.8.7)
-    rcov (0.9.9)
     reek (1.2.8)
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    rspec (2.3.0)
-      rspec-core (~> 2.3.0)
-      rspec-expectations (~> 2.3.0)
-      rspec-mocks (~> 2.3.0)
-    rspec-core (2.3.1)
-    rspec-expectations (2.3.0)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.3.0)
+    rspec-mocks (2.5.0)
     ruby2ruby (1.2.5)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
@@ -35,9 +37,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autotest
   bundler (~> 1.0.0)
   flog
   jeweler (~> 1.5.2)
-  rcov
   reek
-  rspec (~> 2.3.0)
+  rspec (~> 2.5.0)
