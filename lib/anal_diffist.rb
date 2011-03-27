@@ -22,8 +22,8 @@ module AnalDiffist
 
       ref = get_refs_to_diff current_branch, start_ref, end_ref
 
-      file_1 = analyze_ref(ref[0])
-      file_2 = analyze_ref(ref[1])
+      analyze_ref(ref[0])
+      analyze_ref(ref[1])
 
       begin
         echo_exec "git checkout -q #{current_branch}" if current_branch != ref[1]
@@ -56,7 +56,6 @@ module AnalDiffist
       rescue Exception
       end
 
-      file
     end
 
     def echo s
