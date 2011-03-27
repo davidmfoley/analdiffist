@@ -35,7 +35,7 @@ module AnalDiffist
       flog_result.gsub(/:[0-9]+$/, '')
     end
     def diff f1, f2
-      git diff --color=always -U0 -- '#{f1}' '#{f2}'`
+      `git diff --color=always -U0 -- '#{f1}' '#{f2}'`
     end
   end
 end
