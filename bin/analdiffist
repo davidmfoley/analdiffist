@@ -1,6 +1,6 @@
 #! /usr/bin/env ruby
 
-require 'analdiffist'
+require 'anal_diffist'
 
 start_ref = ARGV[0]
 end_ref = ARGV[1]

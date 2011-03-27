@@ -3,11 +3,17 @@ module AnalDiffist
   require 'analdiffist/reek_metrics'
   require 'analdiffist/reek_parser'
   require 'analdiffist/diff_set'
+  require 'analdiffist/text_based_diffist'
+
   class Diffist
   end
 
   require 'tmpdir'
   class Anal < Diffist
+    def initialize
+      @diffist = AnalDiffist::TextBasedDiffist.new
+    end
+
     def run(start_ref, end_ref)
       @targets = AnalDiffist::TargetFinder.new
       current_branch = get_current_branch
@@ -29,7 +35,7 @@ module AnalDiffist
         echo_exec "git stash apply"
       end
 
-      diff file_1, file_2
+      @diffist.report_results
     end
 
     def get_current_branch
@@ -44,38 +50,13 @@ module AnalDiffist
     end
 
     def analyze_ref ref_name
-      file = get_file_name ref_name
       begin
         echo_exec "git checkout -q #{ref_name}"
-        do_analytics file, ref_name
+        @diffist.do_analytics ref_name
       rescue Exception
       end
 
       file
-    end
-
-    def get_file_name ref_name
-      File.join(Dir.tmpdir, "#{ref_name.gsub('/', '_')}-analytics.txt")
-    end
-
-    def do_analytics dest_filename, ref_name
-      puts 'writing analytics to ' + dest_filename
-      
-      reek_result = `reek -q #{@targets}`
-      flog_result = `flog -g #{@targets}`
-      File.open(dest_filename, 'w') do |f|
-        f.write"--- Analytics for #{ref_name} ---\n\n"
-
-        f.write"\n\n--- FLOG ---\n\n"
-        f.write clean_up_flog(flog_result)
-
-        f.write"\n\n--- REEK ---\n\n"
-        f.write reek_result
-      end
-    end
-
-    def clean_up_flog(flog_result)
-      flog_result.gsub(/:[0-9]+$/, '')
     end
 
     def echo s
@@ -94,8 +75,5 @@ module AnalDiffist
       !(result =~ /No local changes to save/)
     end
 
-    def diff f1, f2
-      echo_exec "git diff --color=always -U0 -- '#{f1}' '#{f2}'"
-    end
   end
 end
