@@ -10,11 +10,13 @@ module AnalDiffist
     
     def do_analytics ref_name
       dest_filename = get_file_name ref_name
-      puts 'writing analytics to ' + dest_filename
-      
+     
+      puts 'collecting reek' 
       reek_result = `reek -q #{@targets}`
+      puts 'collecting flog' 
       flog_result = `flog -g #{@targets}`
       File.open(dest_filename, 'w') do |f|
+        puts 'writing analytics to ' + dest_filename
         f.write"--- Analytics for #{ref_name} ---\n\n"
 
         f.write"\n\n--- FLOG ---\n\n"
