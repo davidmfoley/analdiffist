@@ -1,5 +1,8 @@
 module AnalDiffist
   require 'analdiffist/target_finder'
+  require 'analdiffist/reek_metrics'
+  require 'analdiffist/reek_parser'
+  require 'analdiffist/anal_diff_set'
   class Diffist
   end
 
@@ -52,12 +55,12 @@ module AnalDiffist
     end
 
     def get_file_name ref_name
-
       File.join(Dir.tmpdir, "#{ref_name.gsub('/', '_')}-analytics.txt")
     end
 
     def do_analytics dest_filename, ref_name
       puts 'writing analytics to ' + dest_filename
+      
       reek_result = `reek -q #{@targets}`
       flog_result = `flog -g #{@targets}`
       File.open(dest_filename, 'w') do |f|
@@ -94,6 +97,5 @@ module AnalDiffist
     def diff f1, f2
       echo_exec "git diff --color=always -U0 -- '#{f1}' '#{f2}'"
     end
-
   end
 end
