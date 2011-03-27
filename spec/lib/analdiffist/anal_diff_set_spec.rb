@@ -3,7 +3,7 @@ require  'spec_helper'
 describe 'diffing two files' do
   context 'single problem added' do
     before do
-      @diff = AnalDiffist::AnalDiffSet.new([], [test_problem('foo', 'bar')])
+      @diff = AnalDiffist::DiffSet.new([], [test_problem('foo', 'bar')])
     end
     it 'should find a new reek' do
       added_problems = @diff.added_problems
@@ -18,7 +18,7 @@ describe 'diffing two files' do
 
   context 'single problem removed' do
     before do
-      @diff = AnalDiffist::AnalDiffSet.new( [test_problem('foo', 'bar')], [])
+      @diff = AnalDiffist::DiffSet.new( [test_problem('foo', 'bar')], [])
     end
     it 'should find a removed reek' do
       removed_problems = @diff.removed_problems
@@ -35,7 +35,7 @@ describe 'diffing two files' do
     before do
       before = [test_problem('foo', 'bar'), test_problem('removed', 'removed')]
       after = [test_problem('foo', 'bar'), test_problem('added', 'added')]
-      @diff = AnalDiffist::AnalDiffSet.new(before, after)
+      @diff = AnalDiffist::DiffSet.new(before, after)
     end
 
     it 'should find a removed reek' do

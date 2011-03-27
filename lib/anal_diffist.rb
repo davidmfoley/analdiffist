@@ -2,7 +2,7 @@ module AnalDiffist
   require 'analdiffist/target_finder'
   require 'analdiffist/reek_metrics'
   require 'analdiffist/reek_parser'
-  require 'analdiffist/anal_diff_set'
+  require 'analdiffist/diff_set'
   class Diffist
   end
 

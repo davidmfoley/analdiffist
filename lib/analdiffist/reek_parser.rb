@@ -9,7 +9,7 @@ module AnalDiffist
     end
 
     def diff(previous)
-      AnalDiffist::AnalDiffSet.new(previous.problems, self.problems)
+      AnalDiffist::DiffSet.new(previous.problems, self.problems)
     end
 
     class ReekProblem

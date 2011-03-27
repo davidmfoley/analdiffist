@@ -1,5 +1,5 @@
 module AnalDiffist
-  class AnalDiffSet
+  class DiffSet
     def initialize before, after
       @before = before
       @after = after
