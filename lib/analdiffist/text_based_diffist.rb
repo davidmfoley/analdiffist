@@ -2,6 +2,7 @@
 module AnalDiffist
   class TextBasedDiffist
     def initialize
+      @targets = AnalDiffist::TargetFinder.new
       @files = []
     end
     def report_results
@@ -10,7 +11,8 @@ module AnalDiffist
     
     def do_analytics ref_name
       dest_filename = get_file_name ref_name
-     
+    
+      puts  
       puts 'collecting reek' 
       reek_result = `reek -q #{@targets}`
       puts 'collecting flog' 
