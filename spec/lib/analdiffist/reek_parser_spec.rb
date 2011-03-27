@@ -1,7 +1,6 @@
-require 'reek_metrics'
-require 'reek_parser'
+require 'spec_helper'
 
-describe ReekParser do
+describe AnalDiffist::ReekParser do
   context 'a smelly file' do
     before do
       smelly_file_parser = get_parser_for('smelly_file.rb')
@@ -30,7 +29,7 @@ describe ReekParser do
   end
 
   def get_parser_for(fixture_file)
-    file_name = File.join(File.dirname(__FILE__), '../fixtures/', fixture_file)
-    ReekParser.new([file_name])
+    file_name = File.join(File.dirname(__FILE__), '../../fixtures/', fixture_file)
+    AnalDiffist::ReekParser.new([file_name])
   end
 end
