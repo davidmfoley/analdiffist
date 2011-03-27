@@ -6,6 +6,7 @@ module AnalDiffist
       @files = []
     end
     def report_results
+      puts 'results:'
       diff @files[0], @files[1]
     end
     
