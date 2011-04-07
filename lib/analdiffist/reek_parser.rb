@@ -24,6 +24,10 @@ module AnalDiffist
       def context
         @smell.location["context"]
       end
+
+      def score 
+        1
+      end
     end
   end
 end

@@ -2,6 +2,7 @@ module AnalDiffist
   require 'analdiffist/target_finder'
   require 'analdiffist/reek_metrics'
   require 'analdiffist/reek_parser'
+  require 'analdiffist/flog_parser'
   require 'analdiffist/diff_set'
   require 'analdiffist/text_based_diffist'
 
@@ -15,7 +16,6 @@ module AnalDiffist
     end
 
     def run(start_ref, end_ref)
-      @targets = AnalDiffist::TargetFinder.new
       current_branch = get_current_branch
       puts "current branch: #{current_branch}"
       stashed = try_to_stash
