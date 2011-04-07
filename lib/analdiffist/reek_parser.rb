@@ -11,23 +11,29 @@ module AnalDiffist
     def diff(previous)
       AnalDiffist::DiffSet.new(previous.problems, self.problems)
     end
+  end
 
-    class ReekProblem
-      def initialize smell
-        @smell = smell
-      end
+  class ReekProblem
+    def initialize smell
+      @smell = smell
+    end
 
-      def type
-        @smell.subclass.to_s
-      end
+    def type
+      @smell.subclass.to_s || ''
+    end
 
-      def context
-        @smell.location["context"]
-      end
+    def context
+      @smell.location["context"]
+    end
 
-      def score 
-        1
-      end
+    def diff other
+      self if other.nil?
+    end
+    def score
+      1
+    end
+    def description
+      "Reek: #{type}"
     end
   end
 end

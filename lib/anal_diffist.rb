@@ -5,6 +5,7 @@ module AnalDiffist
   require 'analdiffist/flog_parser'
   require 'analdiffist/diff_set'
   require 'analdiffist/text_based_diffist'
+  require 'analdiffist/standard_diffist'
 
   class Diffist
   end
@@ -12,7 +13,7 @@ module AnalDiffist
   require 'tmpdir'
   class Anal < Diffist
     def initialize
-      @diffist = AnalDiffist::TextBasedDiffist.new
+      @diffist = AnalDiffist::StandardDiffist.new
     end
 
     def run(start_ref, end_ref)

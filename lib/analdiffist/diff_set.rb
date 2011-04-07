@@ -16,11 +16,12 @@ module AnalDiffist
     private
     def compare(a,b)
       #TODO: move this comparison into the class?
-      a.select do |problem| 
-        !b.any? do |problem2| 
-          [problem.type, problem.context] == [problem2.type, problem2.context] && problem.score <= problem2.score 
-        end
-      end
+      a.map do |problem| 
+        matching_problem = b.detect {|problem2| [problem.type, problem.context] == [problem2.type, problem2.context] }
+
+          problem.diff(matching_problem)
+
+      end.reject {|x| x.nil?}
     end
   end
 

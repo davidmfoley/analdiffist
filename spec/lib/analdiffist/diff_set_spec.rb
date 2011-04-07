@@ -55,22 +55,29 @@ describe 'diffing two files' do
 
   context 'when scores change' do
     before do
-      before = [test_problem('foo', 'bar', 7.1)]
-      after = [test_problem('foo', 'bar', 8.5)]
+      before = [AnalDiffist::FlogProblem.new('bar', 7.1)]
+      after = [AnalDiffist::FlogProblem.new('bar', 8.5)]
       @diff = AnalDiffist::DiffSet.new(before, after)
     end
 
     it 'should identify as added' do
       added_problems = @diff.added_problems
       added_problems.length.should == 1
+      added_problems.first.score.round(1).should == 1.4
     end
   end
 
   def test_problem type, context, score = 1
+    smell = double("fake problem")
+    smell.stub(:subclass) {type}
+    smell.stub(:location) {context}
+    return AnalDiffist::ReekProblem.new(smell)
+
     double('fake problem').tap do |p|
       p.stub(:type) {type}
       p.stub(:context) {context}
       p.stub(:score) {score}
+      p.stub(:diff) {p}
     end
   end
 end

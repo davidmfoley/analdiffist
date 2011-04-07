@@ -9,14 +9,14 @@ module AnalDiffist
       puts 'results:'
       diff @files[0], @files[1]
     end
-    
+
     def do_analytics ref_name
       dest_filename = get_file_name ref_name
-    
-      puts  
-      puts 'collecting reek' 
+
+      puts
+      puts 'collecting reek'
       reek_result = `reek -q #{@targets}`
-      puts 'collecting flog' 
+      puts 'collecting flog'
       flog_result = `flog -g #{@targets}`
       File.open(dest_filename, 'w') do |f|
         puts 'writing analytics to ' + dest_filename
