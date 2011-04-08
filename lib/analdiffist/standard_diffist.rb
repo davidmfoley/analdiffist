@@ -21,15 +21,16 @@ module AnalDiffist
       after = @revisions[1]
       diff = DiffSet.new(before.problems, after.problems)
 
-      @reporter.report(diff)
+      @reporter.report(diff, before.name, after.name)
 
     end
 
     private
 
     class ProblemSet
-      attr_accessor :problems
+      attr_accessor :problems, :name
       def initialize name, parsers, targets
+        @name = name
         @problems = []
         parsers.each do |parser|
           parser_instance = parser.new(targets.targets)
@@ -41,12 +42,13 @@ module AnalDiffist
   end
 
   class StdOutReporter
-    def report diff
+    def report diff, from_rev, to_rev
+      puts "\n\nAnaldifference between revisions: \n #{from_rev}\n #{to_rev}"
       puts "\nAdded:\n"
       puts describe(diff.added_problems)
       puts "\nRemoved:\n"
       puts describe(diff.removed_problems)
-      #puts diff.inspect
+      puts "\n\n"
     end
 
     def describe(problems)

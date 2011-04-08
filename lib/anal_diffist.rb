@@ -18,29 +18,31 @@ module AnalDiffist
 
     def run(start_ref, end_ref)
       current_branch = get_current_branch
-      puts "current branch: #{current_branch}"
       stashed = try_to_stash
 
       ref = get_refs_to_diff current_branch, start_ref, end_ref
-
+      puts "\nanaldiffisting: #{ref.join(" -> ")}"
       analyze_ref(ref[0])
       analyze_ref(ref[1])
 
       begin
-        echo_exec "git checkout -q #{current_branch}" if current_branch != ref[1]
+        if current_branch != ref[1]
+          puts "checking out original revision: #{current_branch}"
+          checkout_revision current_branch
+        end
       rescue Exception
       end
 
       if stashed
-        echo "unstashing"
-        echo_exec "git stash apply"
+        puts "unstashing"
+        `git stash apply`
       end
 
       @diffist.report_results
     end
 
     def get_current_branch
-      current_branch_raw = echo_exec "git branch --no-color"
+      current_branch_raw = `git branch --no-color`
       lines = current_branch_raw.split("\n")
       current_branch_line = lines.detect{|x| x[0] == '*'}
       current_branch = current_branch_line.split(' ')[1]
@@ -52,27 +54,25 @@ module AnalDiffist
 
     def analyze_ref ref_name
       begin
-        echo_exec "git checkout -q #{ref_name}"
+        checkout_revision ref_name
+        puts "analyzing revision: #{ref_name}"
         @diffist.do_analytics ref_name
       rescue Exception
+        puts "Error in analyze_ref: " + $!.to_s
       end
 
     end
 
-    def echo s
-      puts s
-    end
-
-    def echo_exec command
-      puts command
-      result = `#{command}`
-      puts result
-      result
+    def checkout_revision ref_name
+        puts "checking out revision: #{ref_name}"
+        `git checkout -q #{ref_name}`
     end
 
     def try_to_stash
-      result = echo_exec "git stash"
-      !(result =~ /No local changes to save/)
+      result =  `git stash`
+      stashed = !(result =~ /No local changes to save/)
+      puts "stashed local uncommitted changes" if stashed
+      stashed
     end
 
   end
