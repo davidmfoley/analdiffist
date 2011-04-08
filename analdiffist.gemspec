@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analdiffist}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Pearson", "Dave Foley"]
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
     "lib/analdiffist/reek_metrics.rb",
     "lib/analdiffist/reek_parser.rb",
     "lib/analdiffist/standard_diffist.rb",
+    "lib/analdiffist/std_out_reporter.rb",
     "lib/analdiffist/target_finder.rb",
     "lib/analdiffist/text_based_diffist.rb",
     "spec/fixtures/other_smelly_file.rb",
@@ -44,6 +45,7 @@ Gem::Specification.new do |s|
     "spec/lib/analdiffist/reek_metrics_spec.rb",
     "spec/lib/analdiffist/reek_parser_spec.rb",
     "spec/lib/analdiffist/standard_diffist_spec.rb",
+    "spec/lib/analdiffist/std_out_reporter_spec.rb",
     "spec/lib/analdiffist/target_finder_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -60,6 +62,7 @@ Gem::Specification.new do |s|
     "spec/lib/analdiffist/reek_metrics_spec.rb",
     "spec/lib/analdiffist/reek_parser_spec.rb",
     "spec/lib/analdiffist/standard_diffist_spec.rb",
+    "spec/lib/analdiffist/std_out_reporter_spec.rb",
     "spec/lib/analdiffist/target_finder_spec.rb",
     "spec/spec_helper.rb"
   ]
