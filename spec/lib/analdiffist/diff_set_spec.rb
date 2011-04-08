@@ -55,8 +55,8 @@ describe 'diffing two files' do
 
   context 'when scores change' do
     before do
-      before = [AnalDiffist::FlogProblem.new('bar', 7.1)]
-      after = [AnalDiffist::FlogProblem.new('bar', 8.5)]
+      before = [AnalDiffist::FlogProblem.new('bar', 17.1)]
+      after = [AnalDiffist::FlogProblem.new('bar', 18.5)]
       @diff = AnalDiffist::DiffSet.new(before, after)
     end
 

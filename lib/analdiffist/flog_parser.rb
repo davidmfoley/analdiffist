@@ -10,16 +10,18 @@ module AnalDiffist
       f = Flog.new
       f.flog(@paths)
       problems = []
-      f.each_by_score{|class_method, score, ignore_for_now| problems << FlogProblem.new(class_method, score)}
-      problems.select {|p| p.score >= @flog_threshold}
+      f.each_by_score{|class_method, score, ignore_for_now| problems << FlogProblem.new(class_method, score, @flog_threshold)}
+      problems
+      #problems.select {|p| p.score >= @flog_threshold}
     end
   end
 
   class FlogProblem
     attr_accessor :context, :score
-    def initialize class_method, score
+    def initialize class_method, score, threshold = 10
       @context = class_method || '(none)'
       @score = score.round(1)
+      @flog_threshold = threshold
     end
 
     def type
@@ -27,8 +29,9 @@ module AnalDiffist
     end
 
     def diff other
+      return nil if score < @flog_threshold 
       return self if other.nil?
-      return nil if other.score >= score
+      return nil if other.score >= score 
       FlogDiff.new(@context, other.score, score)
     end
 
@@ -36,6 +39,7 @@ module AnalDiffist
       "Flog score: #{score}"
     end
   end
+
   class FlogDiff
     attr_accessor :context, :score
     def initialize context, previous_score, current_score
