@@ -41,24 +41,4 @@ module AnalDiffist
     end
   end
 
-  class StdOutReporter
-    def report diff, from_rev, to_rev
-      puts "\n\nAnaldifference between revisions: \n #{from_rev}\n #{to_rev}"
-      puts "\nAdded:\n"
-      puts describe(diff.added_problems)
-      puts "\nRemoved:\n"
-      puts describe(diff.removed_problems)
-      puts "\n\n"
-    end
-
-    def describe(problems)
-      by_context = problems.group_by {|prob| prob.context}
-      results = []
-      by_context.keys.sort.each do |k|  
-        results << "  #{k}"
-        results << by_context[k].map {|p| "    #{p.description}"}.join("\n")
-      end.collect
-      results.join("\n")
-    end
-  end
 end

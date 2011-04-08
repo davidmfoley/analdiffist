@@ -30,9 +30,9 @@ module AnalDiffist
       self if other.nil?
     end
     def score
-      1
+      2
     end
-    def description
+    def description mode = :added
       "Reek: #{type}"
     end
   end

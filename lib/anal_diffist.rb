@@ -4,8 +4,8 @@ module AnalDiffist
   require 'analdiffist/reek_parser'
   require 'analdiffist/flog_parser'
   require 'analdiffist/diff_set'
-  require 'analdiffist/text_based_diffist'
   require 'analdiffist/standard_diffist'
+  require 'analdiffist/std_out_reporter'
 
   class Diffist
   end

@@ -29,10 +29,10 @@ module AnalDiffist
     end
 
     def diff other
-      return nil if score < @flog_threshold 
+      return nil if score < @flog_threshold
       return FlogDiff.new(@context, 0, score) if other.nil?
- 
-      return nil if other.score >= score 
+
+      return nil if other.score >= score
       FlogDiff.new(@context, other.score, score)
     end
 
@@ -53,8 +53,9 @@ module AnalDiffist
       (@current_score - @previous_score).round(1)
     end
 
-    def description
-      "Flog: #{@current_score.round(1)} (+#{(@current_score - @previous_score).round(1)})"
+    def description(mode = :added)
+      indicator = (mode == :added) ? "+" : "-"
+      "Flog: #{@current_score.round(1)} (#{indicator}#{(@current_score - @previous_score).round(1)})"
     end
   end
 end
