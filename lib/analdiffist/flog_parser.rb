@@ -30,13 +30,14 @@ module AnalDiffist
 
     def diff other
       return nil if score < @flog_threshold 
-      return self if other.nil?
+      return FlogDiff.new(@context, 0, score) if other.nil?
+ 
       return nil if other.score >= score 
       FlogDiff.new(@context, other.score, score)
     end
 
     def description
-      "Flog score: #{score}"
+      "Flog: #{score}"
     end
   end
 
