@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analdiffist}
-  s.version = "0.1.1"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Pearson", "Dave Foley"]
-  s.date = %q{2011-03-09}
+  s.date = %q{2011-04-08}
   s.default_executable = %q{analdiffist}
   s.description = %q{A tool for comparing the complexity and code smells between two git revisions}
   s.email = %q{davidmfoley@gmail.com}
@@ -29,6 +29,22 @@ Gem::Specification.new do |s|
     "VERSION",
     "analdiffist.gemspec",
     "bin/analdiffist",
+    "lib/anal_diffist.rb",
+    "lib/analdiffist/diff_set.rb",
+    "lib/analdiffist/flog_parser.rb",
+    "lib/analdiffist/reek_metrics.rb",
+    "lib/analdiffist/reek_parser.rb",
+    "lib/analdiffist/standard_diffist.rb",
+    "lib/analdiffist/target_finder.rb",
+    "lib/analdiffist/text_based_diffist.rb",
+    "spec/fixtures/other_smelly_file.rb",
+    "spec/fixtures/smelly_file.rb",
+    "spec/lib/analdiffist/diff_set_spec.rb",
+    "spec/lib/analdiffist/flog_parser_spec.rb",
+    "spec/lib/analdiffist/reek_metrics_spec.rb",
+    "spec/lib/analdiffist/reek_parser_spec.rb",
+    "spec/lib/analdiffist/standard_diffist_spec.rb",
+    "spec/lib/analdiffist/target_finder_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/radamant/analdiffist}
@@ -37,6 +53,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.5.2}
   s.summary = %q{A professional twice over: an analyst and a diffist.}
   s.test_files = [
+    "spec/fixtures/other_smelly_file.rb",
+    "spec/fixtures/smelly_file.rb",
+    "spec/lib/analdiffist/diff_set_spec.rb",
+    "spec/lib/analdiffist/flog_parser_spec.rb",
+    "spec/lib/analdiffist/reek_metrics_spec.rb",
+    "spec/lib/analdiffist/reek_parser_spec.rb",
+    "spec/lib/analdiffist/standard_diffist_spec.rb",
+    "spec/lib/analdiffist/target_finder_spec.rb",
     "spec/spec_helper.rb"
   ]
 
@@ -46,25 +70,25 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<reek>, [">= 0"])
       s.add_runtime_dependency(%q<flog>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.5.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<autotest>, [">= 0"])
     else
       s.add_dependency(%q<reek>, [">= 0"])
       s.add_dependency(%q<flog>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.3.0"])
+      s.add_dependency(%q<rspec>, ["~> 2.5.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<autotest>, [">= 0"])
     end
   else
     s.add_dependency(%q<reek>, [">= 0"])
     s.add_dependency(%q<flog>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.3.0"])
+    s.add_dependency(%q<rspec>, ["~> 2.5.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-    s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<autotest>, [">= 0"])
   end
 end
 
