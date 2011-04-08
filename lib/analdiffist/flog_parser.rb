@@ -19,7 +19,7 @@ module AnalDiffist
     attr_accessor :context, :score
     def initialize class_method, score
       @context = class_method || '(none)'
-      @score = score
+      @score = score.round(1)
     end
 
     def type
