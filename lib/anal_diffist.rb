@@ -21,13 +21,13 @@ module AnalDiffist
       stashed = try_to_stash
 
       ref = get_refs_to_diff current_branch, start_ref, end_ref
-      puts "\nanaldiffisting: #{ref.join(" -> ")}"
+      puts "\nAnaldiffizing: #{ref.join(" -> ")}"
       analyze_ref(ref[0])
       analyze_ref(ref[1])
 
       begin
         if current_branch != ref[1]
-          puts "checking out original revision: #{current_branch}"
+          puts "  checking out original revision: #{current_branch}"
           checkout_revision current_branch
         end
       rescue Exception
@@ -55,7 +55,7 @@ module AnalDiffist
     def analyze_ref ref_name
       begin
         checkout_revision ref_name
-        puts "analyzing revision: #{ref_name}"
+        puts "  analyzing revision: #{ref_name}"
         @diffist.do_analytics ref_name
       rescue Exception
         puts "Error in analyze_ref: " + $!.to_s
@@ -64,7 +64,7 @@ module AnalDiffist
     end
 
     def checkout_revision ref_name
-        puts "checking out revision: #{ref_name}"
+        puts "  checking out revision: #{ref_name}"
         `git checkout -q #{ref_name}`
     end
 
