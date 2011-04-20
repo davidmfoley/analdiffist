@@ -29,6 +29,7 @@ module AnalDiffist
     def diff other
       self if other.nil?
     end
+
     def score
       2
     end

@@ -24,20 +24,8 @@ module AnalDiffist
         keys.each do |key| #=> [Reek, 'Class#method']
           before_problems = before_by_context[key] || [] 
           after_problems = after_by_context[key] || []
-
-          before_len = before_problems.length
-          after_len = after_problems.length
-
-          0.upto([before_len, after_len].min - 1) do |i|
-            to_return << after_problems[i].diff(before_problems[i])
-          end
-
-          before_len.upto(after_len - 1) do |i|
-            to_return << after_problems[i].diff(nil)
-          end
-
-          after_len.upto(before_len - 1) do |i|
-            to_return << InvertedDiff.new(before_problems[i].diff(nil))
+          1.upto([before_problems.length, after_problems.length].max) do |i|
+            to_return << before_problems[i].diff(after_problems[i])
           end
         end
         to_return.reject(&:nil?)

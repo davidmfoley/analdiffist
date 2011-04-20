@@ -1,0 +1,5 @@
+- if there are uncommitted changes, should they be analyzed?
+- diffing engine needs help
+- add -v and --version switches 
+- different grouping options (added/removed and by class/module/context)
+

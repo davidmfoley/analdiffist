@@ -53,6 +53,22 @@ describe 'diffing two files' do
     end
   end
 
+  context 'two reeks with same context and type, then one is removed' do
+    before do
+      before = [test_problem('same-type', 'bar'), test_problem('same-type', 'bar')]
+      after = [test_problem('same-type', 'bar')]
+      @diff = AnalDiffist::DiffSet.new(before, after)
+    end
+
+    it 'should show one removed problem' do
+      @diff.removed_problems.length.should ==1
+    end
+
+    it 'should have zero added problems' do
+      @diff.added_problems.length.should == 0
+    end
+  end
+
   context 'when scores change' do
     before do
       before = [AnalDiffist::FlogProblem.new('bar', 17.1)]
