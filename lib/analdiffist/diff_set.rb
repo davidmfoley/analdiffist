@@ -32,17 +32,23 @@ module AnalDiffist
             to_return << after_problems[i].diff(before_problems[i])
           end
 
-          before_len.upto(after_len - 1) do |i|
-            to_return << after_problems[i].diff(nil)
-          end
+          to_return = to_return.concat( compare_difference_lists(before_problems, after_problems))
+          removed =  compare_difference_lists(after_problems, before_problems)
+          to_return = to_return.concat(removed.map{|diff| InvertedDiff.new(diff)})
 
-          after_len.upto(before_len - 1) do |i|
-            to_return << InvertedDiff.new(before_problems[i].diff(nil))
-          end
         end
         to_return.reject(&:nil?)
       end
     end
+
+    def compare_difference_lists a, b
+      to_return = []
+      a.length.upto(b.length - 1) do |i|
+        to_return << b[i].diff(nil)
+      end
+      to_return
+    end
+
     def compare(a,b)
       #TODO: move this comparison into the class?
       a.map do |problem| 
