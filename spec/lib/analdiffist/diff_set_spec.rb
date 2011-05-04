@@ -1,4 +1,14 @@
 require  'spec_helper'
+RSpec::Matchers.define :have_a_single_problem do |type, context|
+  match do |problems|
+    puts type
+    puts context
+    puts problems.first.inspect
+    problems.length.should == 1
+    problems.first.type.should == type
+    problems.first.context.should == context
+  end
+end
 
 describe 'diffing two files' do
   context 'single problem added' do
@@ -6,10 +16,7 @@ describe 'diffing two files' do
       @diff = AnalDiffist::DiffSet.new([], [test_problem('foo', 'bar')])
     end
     it 'should find a new reek' do
-      added_problems = @diff.added_problems
-      added_problems.length.should == 1
-      added_problems.first.type.should == 'foo'
-      added_problems.first.context == 'bar'
+      @diff.added_problems.should have_a_single_problem('foo', 'bar')
     end
     it 'should not have any removed reeks' do
       @diff.removed_problems.should == []
@@ -20,12 +27,11 @@ describe 'diffing two files' do
     before do
       @diff = AnalDiffist::DiffSet.new( [test_problem('foo', 'bar')], [])
     end
+
     it 'should find a removed reek' do
-      removed_problems = @diff.removed_problems
-      removed_problems.length.should == 1
-      removed_problems.first.type.should == 'foo'
-      removed_problems.first.context == 'bar'
+      @diff.removed_problems.should have_a_single_problem 'foo', 'bar'
     end
+
     it 'should not have any added reeks' do
       @diff.added_problems.should == []
     end
@@ -39,17 +45,11 @@ describe 'diffing two files' do
     end
 
     it 'should find a removed reek' do
-      removed_problems = @diff.removed_problems
-      removed_problems.length.should == 1
-      removed_problems.first.type.should == 'removed'
-      removed_problems.first.context == 'removed'
+      @diff.removed_problems.should have_a_single_problem 'removed', 'removed'
     end
 
     it 'should find an added problem' do
-      added_problems = @diff.added_problems
-      added_problems.length.should == 1
-      added_problems.first.type.should == 'added'
-      added_problems.first.context == 'added'
+      @diff.added_problems.should have_a_single_problem 'added', 'added'
     end
   end
 
@@ -86,14 +86,7 @@ describe 'diffing two files' do
   def test_problem type, context, score = 1
     smell = double("fake problem")
     smell.stub(:subclass) {type}
-    smell.stub(:location) {context}
+    smell.stub(:location) { {"context" => context} }
     return AnalDiffist::ReekProblem.new(smell)
-
-    double('fake problem').tap do |p|
-      p.stub(:type) {type}
-      p.stub(:context) {context}
-      p.stub(:score) {score}
-      p.stub(:diff) {p}
-    end
   end
 end

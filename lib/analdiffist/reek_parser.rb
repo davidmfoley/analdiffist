@@ -4,8 +4,17 @@ module AnalDiffist
     attr_accessor :problems
 
     def initialize(paths)
-      examiner = Reek::Examiner.new(paths)
-      @problems = examiner.smells.map {|smell| ReekProblem.new(smell)}
+      @examiner = Reek::Examiner.new(paths)
+      @problems = get_problems
+    end
+
+    def get_problems
+      unfiltered = @examiner.smells.map {|smell| ReekProblem.new(smell)}
+      filter_reek_problems(unfiltered)
+    end
+
+    def filter_reek_problems(reek_problems)
+      reek_problems
     end
 
     def diff(previous)
@@ -33,6 +42,7 @@ module AnalDiffist
     def score
       2
     end
+
     def description mode = :added
       "Reek: #{type}"
     end

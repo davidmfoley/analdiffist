@@ -34,12 +34,13 @@ module AnalDiffist
     def compare_problem_sets(before_problems, after_problems)
       count_in_both = [before_problems.length,after_problems.length].min
       diffs = []
+
       0.upto(count_in_both - 1) do |i|
         diffs << after_problems[i].diff(before_problems[i])
       end
 
-      added =  compare_difference_lists(before_problems, after_problems)
-      removed =  compare_difference_lists(after_problems, before_problems).map{|diff| InvertedDiff.new(diff)}
+      added = compare_difference_lists(before_problems, after_problems)
+      removed = compare_difference_lists(after_problems, before_problems).map{|diff| InvertedDiff.new(diff)}
       diffs + added + removed
     end
 
