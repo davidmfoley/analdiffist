@@ -1,6 +1,5 @@
 module AnalDiffist
   require 'analdiffist/target_finder'
-  require 'analdiffist/reek_metrics'
   require 'analdiffist/reek_parser'
   require 'analdiffist/flog_parser'
   require 'analdiffist/diff_set'
