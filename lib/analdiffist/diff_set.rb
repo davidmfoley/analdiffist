@@ -6,11 +6,11 @@ module AnalDiffist
     end
 
     def added_problems
-      differences.select {|problem| problem.score > 0 }
+      differences.select {|difference| difference.score > 0 }
     end
 
     def removed_problems
-      differences.select {|problem| problem.score < 0 }
+      differences.select {|difference| difference.score < 0 }
     end
 
     private
@@ -19,40 +19,41 @@ module AnalDiffist
         before_by_context = @before.group_by {|b| [b.type, b.context]}
         after_by_context = @after.group_by {|b| [b.type, b.context]}
 
-        keys = (before_by_context.keys + after_by_context.keys).uniq
-        to_return = []
-        keys.each do |key| #=> [Reek, 'Class#method']
-          before_problems = before_by_context[key] || []
-          after_problems = after_by_context[key] || []
+        @by_context = {}
 
-          to_return = to_return.concat(compare_problem_sets(before_problems, after_problems))
-        end
-        to_return.reject(&:nil?)
+        add_to_context(before_by_context, :before)
+        add_to_context(after_by_context, :after)
+
+        calculate_differences
       end
+
     end
 
-    def compare_problem_sets(before_problems, after_problems)
-      count_in_both = [before_problems.length,after_problems.length].min
+    def calculate_differences
       diffs = []
+      @by_context.each do |context, problems| 
+        before = problems[:before] || []
+        after = problems[:after] || []
+        
+        0.upto([before.count, after.count].min - 1) do |i|
+          diff = after[i].diff(before[i]) 
+          
+          diffs << diff 
+        end
 
-      0.upto(count_in_both - 1) do |i|
-        diffs << after_problems[i].diff(before_problems[i])
+        before_only = before[after.length..-1] || []
+        after_only = after[before.length..-1] || []
+        diffs.concat before_only.map {|x| InvertedDiff.new(x.diff(nil))}
+        diffs.concat after_only.map {|x| x.diff(nil)}
       end
-
-      added = compare_difference_lists(before_problems, after_problems)
-      removed = compare_difference_lists(after_problems, before_problems).map{|diff| InvertedDiff.new(diff)}
-      diffs + added + removed
+      diffs.reject(&:nil?)
     end
 
-    def compare_difference_lists a, b
-      to_return = []
-      a.length.upto(b.length - 1) do |i|
-        to_return << b[i].diff(nil)
+    def add_to_context hash, destination_key
+      hash.each do |key, value| 
+        @by_context[key] ||= {}
+        @by_context[key][destination_key] = value
       end
-      to_return
     end
-  end
-
-  class ScoreDiffSet
   end
 end

@@ -22,7 +22,10 @@ module AnalDiffist
       diff = DiffSet.new(before.problems, after.problems)
 
       @reporter.report(diff, before.name, after.name)
+    end
 
+    def puts_problems problems
+      puts problems.map {|p| "#{p.context} - #{p.description}"}.join("\n")
     end
 
     private

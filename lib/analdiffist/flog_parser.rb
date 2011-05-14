@@ -24,16 +24,14 @@ module AnalDiffist
       @flog_threshold = threshold
     end
 
-
     def type
       'flog score'
     end
 
     def diff other
-      return nil if score < @flog_threshold
       return FlogDiff.new(@context, 0, score) if other.nil?
 
-      return nil if other.score >= score
+      return nil if other.score == score
       FlogDiff.new(@context, other.score, score)
     end
 
@@ -58,6 +56,7 @@ module AnalDiffist
       score = 0 - (score || 0)
       self
     end
+
     def description(mode = :added)
       indicator = (mode == :added) ? "+" : "-"
       "Flog: #{@current_score.round(1)} (#{indicator}#{(@current_score - @previous_score).round(1)})"
@@ -66,7 +65,7 @@ module AnalDiffist
 
   class InvertedDiff
     def initialize inner
-      @inner = inner
+      @inner = inner 
     end
 
     def context
@@ -79,6 +78,10 @@ module AnalDiffist
     
     def type
       @inner.type
+    end
+
+    def description(mode = :added)
+      @inner.description(mode)
     end
   end
 end

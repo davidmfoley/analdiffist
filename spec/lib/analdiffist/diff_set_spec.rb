@@ -55,6 +55,17 @@ describe 'diffing two files' do
     specify {subject.first.score.should == 1.4 }
   end
 
+  context 'removing a flog' do
+    subject do
+      before = [AnalDiffist::FlogProblem.new('bar', 18.1)]
+      after = [AnalDiffist::FlogProblem.new('bar', 8.5)]
+      AnalDiffist::DiffSet.new(before, after)
+    end
+    specify {subject.added_problems.should have(0).problems}
+    specify {subject.removed_problems.should have(1).item}
+    specify {subject.removed_problems.first.score.should == -9.6 }
+  end
+
   def test_problem type, context, score = 1
     smell = double("fake problem")
     smell.stub(:subclass) {type}

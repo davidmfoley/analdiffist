@@ -43,7 +43,7 @@ module AnalDiffist
       2
     end
 
-    def description mode = :added
+    def description(mode = :added)
       "Reek: #{type}"
     end
   end
