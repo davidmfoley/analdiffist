@@ -16,12 +16,11 @@ module AnalDiffist
     def sum_scores diffs
       sum = 0.0
       diffs.each {|p| sum += p.score}
-      sum
+      sum.round(1)
     end
 
     def describe_problems problems, title, mode
-      sum = 0.0
-      problems.each {|p| sum += p.score}
+      sum = sum_scores(problems)
       puts "\n#{title} (#{problems.length} : #{sum})\n"
       puts describe(problems, mode).join("\n")
     end
