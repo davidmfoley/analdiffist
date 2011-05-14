@@ -58,7 +58,7 @@ module AnalDiffist
     end
 
     def description(mode = :added)
-      indicator = (mode == :added) ? "+" : "-"
+      indicator = (mode == :added) ? "+" : ""
       "Flog: #{@current_score.round(1)} (#{indicator}#{(@current_score - @previous_score).round(1)})"
     end
   end
