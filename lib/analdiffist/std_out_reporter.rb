@@ -5,7 +5,7 @@ module AnalDiffist
       sum = sum_scores(diff.added_problems + diff.removed_problems)
       direction = ["Same", "Worse", "Better"][sum<=>0]
 
-      puts "Overall: #{sum} (#{direction})"
+      puts "Overall: #{'+' if sum > 0}#{sum} (#{direction})"
 
       describe_problems(diff.added_problems, 'Worse', :added)
       describe_problems(diff.removed_problems, 'Better', :removed)
