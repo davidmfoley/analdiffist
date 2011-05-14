@@ -2,10 +2,21 @@ module AnalDiffist
   class StdOutReporter
     def report diff, from_rev, to_rev
       puts "\n\nAnaldifference between revisions: \n #{from_rev}\n #{to_rev}"
-      describe_problems(diff.added_problems, 'Added', :added)
-      describe_problems(diff.removed_problems, 'Removed', :removed)
+      sum = sum_scores(diff.added_problems + diff.removed_problems)
+      direction = ["Same", "Worse", "Better"][sum<=>0]
+
+      puts "Overall: #{sum} (#{direction})"
+
+      describe_problems(diff.added_problems, 'Worse', :added)
+      describe_problems(diff.removed_problems, 'Better', :removed)
 
       puts "\n\n"
+    end
+
+    def sum_scores diffs
+      sum = 0.0
+      diffs.each {|p| sum += p.score}
+      sum
     end
 
     def describe_problems problems, title, mode
