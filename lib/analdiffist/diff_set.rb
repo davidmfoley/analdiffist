@@ -16,9 +16,9 @@ module AnalDiffist
     private
     def differences
       @differences ||=  begin
-        @by_context = {}
-        calculate_differences
-      end
+                          @by_context = {}
+                          calculate_differences
+                        end
     end
 
     def calculate_differences
@@ -26,24 +26,31 @@ module AnalDiffist
       before_by_context = @before.group_by {|b| [b.type, b.context]}
       after_by_context = @after.group_by {|b| [b.type, b.context]}
       all_contexts = (before_by_context.keys + after_by_context.keys).uniq
-      
+
       all_contexts.each do |context|
+
         before = before_by_context[context] || []
         after = after_by_context[context] || []
-       
 
-        0.upto([before.count, after.count].min - 1) do |i|
-          diff = after[i].diff(before[i]) 
-          diffs << diff 
-        end
-
-        before_only = before[after.length..-1] || []
-        after_only = after[before.length..-1] || []
-        diffs.concat before_only.map {|x| diff = x.diff(nil); diff.nil? ? nil : InvertedDiff.new(diff)}
-        diffs.concat after_only.map {|x| x.diff(nil)}
+        diffs.concat(calculate_diffs_for_a_context(before, after))
       end
       diffs.reject(&:nil?)
     end
 
+    def calculate_diffs_for_a_context before, after
+      diffs = []
+      while before.any? || after.any? do
+        diff = get_diff(before.pop, after.pop)
+        diffs << diff unless diff.nil?
+      end
+      diffs
+    end
+
+    def get_diff before, after
+      return after.diff(before) unless after.nil?
+      diff = before.diff(after)
+      return nil if diff.nil?
+      InvertedDiff.new(diff)
+    end
   end
 end

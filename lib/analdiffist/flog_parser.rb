@@ -31,7 +31,7 @@ module AnalDiffist
     def diff other
       if other.nil?
         return nil if score < @flog_threshold
-        return FlogDiff.new(@context, 0, score) 
+        return FlogDiff.new(@context, 0, score)
       end
       return nil if other.score == score
       return nil if score < @flog_threshold && other.score < @flog_threshold
@@ -68,7 +68,7 @@ module AnalDiffist
 
   class InvertedDiff
     def initialize inner
-      @inner = inner 
+      @inner = inner
     end
 
     def context
@@ -78,7 +78,7 @@ module AnalDiffist
     def score
       0-@inner.score
     end
-    
+
     def type
       @inner.type
     end
