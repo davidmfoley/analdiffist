@@ -34,15 +34,28 @@ describe 'diffing two files' do
     its(:added_problems) {should have_a_single_problem 'added', 'added'}
   end
 
-  context 'two reeks with same context and type, then one is removed' do
-    subject do
-      before = [test_problem('same-type', 'bar'), test_problem('same-type', 'bar')]
-      after = [test_problem('same-type', 'bar')]
-      AnalDiffist::DiffSet.new(before, after)
+  context 'reeks are grouped by context and type' do
+    context 'two reeks with same context and type, then one is removed' do
+      subject do
+        before = [test_problem('same-type', 'bar'), test_problem('same-type', 'bar')]
+        after = [test_problem('same-type', 'bar')]
+        AnalDiffist::DiffSet.new(before, after)
+      end
+
+      its(:removed_problems) {should  have_a_single_problem 'same-type', 'bar'}
+      its(:added_problems) {should == []}
     end
 
-    its(:removed_problems) {should  have_a_single_problem 'same-type', 'bar'}
-    its(:added_problems) {should == []}
+    context 'two reeks with same context and different type, then one is removed' do
+      subject do
+        before = [test_problem('other-type', 'bar')]
+        after = [test_problem('same-type', 'bar')]
+        AnalDiffist::DiffSet.new(before, after)
+      end
+
+      its(:removed_problems) {should  have_a_single_problem 'other-type', 'bar'}
+      its(:added_problems) {should  have_a_single_problem 'same-type', 'bar'}
+    end
   end
 
   context 'when scores change' do

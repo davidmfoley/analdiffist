@@ -15,10 +15,7 @@ module AnalDiffist
 
     private
     def differences
-      @differences ||=  begin
-                          @by_context = {}
-                          calculate_differences
-                        end
+      @differences ||= calculate_differences
     end
 
     def calculate_differences
