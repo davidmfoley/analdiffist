@@ -7,7 +7,8 @@ module AnalDiffist
     end
 
     def problems
-      f = Flog.new
+      f = Flog.new :continue => true
+
       f.flog(@paths)
       problems = []
       f.each_by_score{|class_method, score, ignore_for_now| problems << FlogProblem.new(class_method, score, @flog_threshold)}
