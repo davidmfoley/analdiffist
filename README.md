@@ -20,7 +20,7 @@ Diff w/ analysis and metrics for `origin/master..HEAD`:
 
     $> analdiffist origin/master
 
-_or use analdiffist's default default, `origin/master`:
+_or use analdiffist's default default, which is the common ancestor of HEAD and origin/master:
 
     $> analdiffist
 
