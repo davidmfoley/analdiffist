@@ -48,7 +48,7 @@ module AnalDiffist
     end
 
     def get_refs_to_diff current_branch, start_ref, end_ref
-      [ start_ref || "origin/master", end_ref || current_branch]
+      [ start_ref ||  `git merge-base HEAD origin/master`, end_ref || current_branch]
     end
 
     def analyze_ref ref_name
