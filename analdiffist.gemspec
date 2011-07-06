@@ -5,18 +5,19 @@
 
 Gem::Specification.new do |s|
   s.name = %q{analdiffist}
-  s.version = "0.3.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Pearson", "Dave Foley"]
-  s.date = %q{2011-04-08}
+  s.date = %q{2011-07-06}
   s.default_executable = %q{analdiffist}
   s.description = %q{A tool for comparing the complexity and code smells between two git revisions}
   s.email = %q{davidmfoley@gmail.com}
   s.executables = ["analdiffist"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.md"
+    "README.md",
+    "TODO"
   ]
   s.files = [
     ".document",
@@ -32,7 +33,6 @@ Gem::Specification.new do |s|
     "lib/anal_diffist.rb",
     "lib/analdiffist/diff_set.rb",
     "lib/analdiffist/flog_parser.rb",
-    "lib/analdiffist/reek_metrics.rb",
     "lib/analdiffist/reek_parser.rb",
     "lib/analdiffist/standard_diffist.rb",
     "lib/analdiffist/std_out_reporter.rb",
@@ -42,12 +42,12 @@ Gem::Specification.new do |s|
     "spec/fixtures/smelly_file.rb",
     "spec/lib/analdiffist/diff_set_spec.rb",
     "spec/lib/analdiffist/flog_parser_spec.rb",
-    "spec/lib/analdiffist/reek_metrics_spec.rb",
     "spec/lib/analdiffist/reek_parser_spec.rb",
     "spec/lib/analdiffist/standard_diffist_spec.rb",
     "spec/lib/analdiffist/std_out_reporter_spec.rb",
     "spec/lib/analdiffist/target_finder_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "todo"
   ]
   s.homepage = %q{http://github.com/radamant/analdiffist}
   s.licenses = ["MIT"]
@@ -59,7 +59,6 @@ Gem::Specification.new do |s|
     "spec/fixtures/smelly_file.rb",
     "spec/lib/analdiffist/diff_set_spec.rb",
     "spec/lib/analdiffist/flog_parser_spec.rb",
-    "spec/lib/analdiffist/reek_metrics_spec.rb",
     "spec/lib/analdiffist/reek_parser_spec.rb",
     "spec/lib/analdiffist/standard_diffist_spec.rb",
     "spec/lib/analdiffist/std_out_reporter_spec.rb",
