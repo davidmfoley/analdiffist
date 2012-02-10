@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe AnalDiffist::StandardDiffist do
   class FakeParser
+    def initialize opts
+    end
+
     def problems
       []
     end
