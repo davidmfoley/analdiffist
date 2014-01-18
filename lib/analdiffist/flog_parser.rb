@@ -11,18 +11,21 @@ module AnalDiffist
 
       f.flog(@paths)
       problems = []
-      f.each_by_score{|class_method, score, ignore_for_now| problems << FlogProblem.new(class_method, score, @flog_threshold)}
+      f.each_by_score{|class_method, score, ignore_for_now|
+        loc = f.method_locations[class_method].split(":")[0] rescue class_method
+        location = Pathname.new(loc).cleanpath.to_s
+        problems << FlogProblem.new(class_method, score, location, @flog_threshold)}
       problems
-      #problems.select {|p| p.score >= @flog_threshold}
     end
   end
 
   class FlogProblem
-    attr_accessor :context, :score
-    def initialize class_method, score, threshold = 10
+    attr_accessor :context, :score, :location
+    def initialize class_method, score, location, threshold = 10
       @context = class_method || '(none)'
       @score = score.round(1)
       @flog_threshold = threshold
+      @location = location
     end
 
     def type

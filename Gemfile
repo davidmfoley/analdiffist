@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem "reek"
 gem "flog"
+gem "flay"
 
 group :development do
   gem "rspec", "~> 2.5.0"

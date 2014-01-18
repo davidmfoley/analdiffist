@@ -60,8 +60,8 @@ describe 'diffing two files' do
 
   context 'when scores change' do
     subject do
-      before = [AnalDiffist::FlogProblem.new('bar', 17.1)]
-      after = [AnalDiffist::FlogProblem.new('bar', 18.5)]
+      before = [AnalDiffist::FlogProblem.new('bar', 17.1, '')]
+      after = [AnalDiffist::FlogProblem.new('bar', 18.5, '')]
       AnalDiffist::DiffSet.new(before, after).added_problems
     end
     specify {subject.should have(1).item}
@@ -70,8 +70,8 @@ describe 'diffing two files' do
 
   context 'removing a flog' do
     subject do
-      before = [AnalDiffist::FlogProblem.new('bar', 18.1)]
-      after = [AnalDiffist::FlogProblem.new('bar', 8.5)]
+      before = [AnalDiffist::FlogProblem.new('bar', 18.1, '')]
+      after = [AnalDiffist::FlogProblem.new('bar', 8.5, '')]
       AnalDiffist::DiffSet.new(before, after)
     end
     specify {subject.added_problems.should have(0).problems}

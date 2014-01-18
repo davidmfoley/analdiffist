@@ -13,6 +13,7 @@ describe AnalDiffist::FlogParser do
     it 'should have an entry for the test method with a non zero score' do
       duplication = @problems.detect {|p| p.context == 'SmellyFile#duplication'}
       duplication.score.should > 0
+      duplication.location.should match /smelly\_file\.rb$/
     end
   end
 end

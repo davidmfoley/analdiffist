@@ -2,6 +2,7 @@ module AnalDiffist
   require 'analdiffist/target_finder'
   require 'analdiffist/reek_parser'
   require 'analdiffist/flog_parser'
+  require 'analdiffist/flay_parser'
   require 'analdiffist/diff_set'
   require 'analdiffist/standard_diffist'
   require 'analdiffist/std_out_reporter'
